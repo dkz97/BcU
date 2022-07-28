@@ -4,8 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.crypto.bcuwallet.account.struct.AccountStruct;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Keys;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGetBalance;
 
-import java.math.BigDecimal;
+import java.io.IOException;
+import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -57,15 +61,17 @@ public class AccountUtil {
     /**
      * 查询账户余额
      */
-    public static BigDecimal queryAccountBalance(String address, String contract) {
-        log.info("开始查询账户余额, address: {}, contract: {}", address, contract);
+    public static BigInteger getBalanceOf(Web3j web3j, String address) throws IOException {
+        log.info("开始查询账户余额, address: {}", address);
+        if (web3j == null) {
+            return null;
+        }
+        // 从最新的区块中查询余额
+        EthGetBalance balance = web3j.ethGetBalance(address, DefaultBlockParameterName.LATEST).send();
+        BigInteger result = balance.getBalance();
+        log.info("查询账户余额完成, address: {}, balance: {}", address, result);
 
-        BigDecimal balance = null;
-
-        // 查询余额
-
-
-        return balance;
+        return result;
     }
 
 }

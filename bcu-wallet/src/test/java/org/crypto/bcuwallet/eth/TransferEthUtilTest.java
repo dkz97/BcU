@@ -3,11 +3,17 @@ package org.crypto.bcuwallet.eth;
 import java.io.IOException;
 
 import lombok.extern.slf4j.Slf4j;
+import org.crypto.bcuwallet.BcuWalletApplication;
 import org.crypto.bcuwallet.common.util.Web3jUtil;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.web3j.protocol.Web3j;
 
 @Slf4j
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = BcuWalletApplication.class)
 class TransferEthUtilTest {
     /**
      * 测试获取当前以太坊gas费
