@@ -74,4 +74,20 @@ public class AccountUtil {
         return result;
     }
 
+    /**
+     * 批量查询账户余额
+     */
+    public static List<BigInteger> getBalanceOf(Web3j web3j, List<String> addresses) throws IOException {
+        log.info("开始批量查询账户余额, addresses: {}", addresses);
+        if (web3j == null) {
+            return null;
+        }
+        List<BigInteger> result = new ArrayList<>();
+        for (String address : addresses) {
+            result.add(getBalanceOf(web3j, address));
+        }
+        log.info("批量查询账户余额完成, addresses: {}, result: {}", addresses, result);
+        return result;
+    }
+
 }
