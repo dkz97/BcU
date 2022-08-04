@@ -7,6 +7,7 @@ import org.web3j.crypto.Keys;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
+import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -15,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Desc: 操作账户的工具类
@@ -88,6 +90,22 @@ public class AccountUtil {
         }
         log.info("批量查询账户余额完成, addresses: {}, result: {}", addresses, result);
         return result;
+    }
+
+    /**
+     * 获取nonce，交易笔数
+     *
+     * @param from address
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public static BigInteger getNonce(Web3j web3j, String from) throws ExecutionException, InterruptedException {
+        if (web3j == null) {
+            return null;
+        }
+        EthGetTransactionCount transactionCount = web3j.ethGetTransactionCount(from, DefaultBlockParameterName.LATEST).sendAsync().get();
+        return transactionCount.getTransactionCount();
     }
 
 }
