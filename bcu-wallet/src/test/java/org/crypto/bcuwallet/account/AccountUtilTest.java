@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import org.crypto.bcuwallet.account.struct.AccountStruct;
 import org.junit.jupiter.api.Disabled;
@@ -24,6 +25,7 @@ import org.web3j.protocol.core.Request;
 import org.web3j.protocol.core.Response;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.websocket.WebSocketService;
 
 class AccountUtilTest {
     /**
@@ -132,6 +134,87 @@ class AccountUtilTest {
         ArrayList<String> stringList = new ArrayList<>();
         stringList.add("开始批量查询账户余额, addresses: {}");
         AccountUtil.getBalanceOf(web3j, stringList);
+    }
+
+    /**
+     * Method under test: {@link AccountUtil#getNonce(Web3j, String)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testGetNonce() throws InterruptedException, ExecutionException {
+        // TODO: Complete this test.
+        //   Reason: R013 No inputs found that don't throw a trivial exception.
+        //   Diffblue Cover tried to run the arrange/act section, but the method under
+        //   test threw
+        //   java.util.concurrent.ExecutionException: com.diffblue.cover.sandbox.execution.ForbiddenByPolicyException: Sandboxing policy violation. Reason: to access the network
+        //       at java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:357)
+        //       at java.util.concurrent.CompletableFuture.get(CompletableFuture.java:1908)
+        //       at org.crypto.bcuwallet.account.AccountUtil.getNonce(AccountUtil.java:107)
+        //   In order to prevent getNonce(Web3j, String)
+        //   from throwing ExecutionException, add constructors or factory
+        //   methods that make it easier to construct fully initialized objects used in
+        //   getNonce(Web3j, String).
+        //   See https://diff.blue/R013 to resolve this issue.
+
+        AccountUtil.getNonce(new JsonRpc2_0Admin(new HttpService()), "jane.doe@example.org");
+    }
+
+    /**
+     * Method under test: {@link AccountUtil#getNonce(Web3j, String)}
+     */
+    @Test
+    void testGetNonce2() throws InterruptedException, ExecutionException {
+        assertNull(AccountUtil.getNonce(null, "foo"));
+    }
+
+    /**
+     * Method under test: {@link AccountUtil#getNonce(Web3j, String)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testGetNonce3() throws InterruptedException, ExecutionException {
+        // TODO: Complete this test.
+        //   Reason: R013 No inputs found that don't throw a trivial exception.
+        //   Diffblue Cover tried to run the arrange/act section, but the method under
+        //   test threw
+        //   java.lang.NullPointerException
+        //       at org.web3j.protocol.core.Request.sendAsync(Request.java:91)
+        //       at org.crypto.bcuwallet.account.AccountUtil.getNonce(AccountUtil.java:107)
+        //   In order to prevent getNonce(Web3j, String)
+        //   from throwing NullPointerException, add constructors or factory
+        //   methods that make it easier to construct fully initialized objects used in
+        //   getNonce(Web3j, String).
+        //   See https://diff.blue/R013 to resolve this issue.
+
+        AccountUtil.getNonce(new JsonRpc2_0Admin(null), "jane.doe@example.org");
+    }
+
+    /**
+     * Method under test: {@link AccountUtil#getNonce(Web3j, String)}
+     */
+    @Test
+    @Disabled("TODO: Complete this test")
+    void testGetNonce4() throws InterruptedException, ExecutionException {
+        // TODO: Complete this test.
+        //   Reason: R013 No inputs found that don't throw a trivial exception.
+        //   Diffblue Cover tried to run the arrange/act section, but the method under
+        //   test threw
+        //   org.java_websocket.exceptions.WebsocketNotConnectedException
+        //       at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:664)
+        //       at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:640)
+        //       at org.java_websocket.client.WebSocketClient.send(WebSocketClient.java:431)
+        //       at org.web3j.protocol.websocket.WebSocketService.sendRequest(WebSocketService.java:234)
+        //       at org.web3j.protocol.websocket.WebSocketService.sendAsync(WebSocketService.java:185)
+        //       at org.web3j.protocol.core.Request.sendAsync(Request.java:91)
+        //       at org.crypto.bcuwallet.account.AccountUtil.getNonce(AccountUtil.java:107)
+        //   In order to prevent getNonce(Web3j, String)
+        //   from throwing WebsocketNotConnectedException, add constructors or factory
+        //   methods that make it easier to construct fully initialized objects used in
+        //   getNonce(Web3j, String).
+        //   See https://diff.blue/R013 to resolve this issue.
+
+        AccountUtil.getNonce(new JsonRpc2_0Admin(new WebSocketService("https://example.org/example", true)),
+                "jane.doe@example.org");
     }
 
 
