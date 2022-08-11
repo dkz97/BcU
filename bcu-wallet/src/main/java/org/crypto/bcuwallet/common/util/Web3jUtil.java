@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
 
+import java.math.BigDecimal;
+
 /**
  * Desc: 构造web3j客户端工具类
  *
@@ -29,6 +31,16 @@ public class Web3jUtil {
      */
     public static Web3j connectEthInfura() {
         return Web3j.build(new HttpService(Node.ETH_INFURA_NODE));
+    }
+
+    /**
+     * 自动计算复投收益
+     */
+    public static BigDecimal autoCalcFtIncome(BigDecimal balance, BigDecimal rate, int days) {
+        for (int i = 1; i <= days; i++) {
+            balance = balance.multiply(rate).add(balance);
+        }
+        return balance;
     }
 
 }
