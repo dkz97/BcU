@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.web3j.protocol.Web3j;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @Slf4j
 @RunWith(SpringRunner.class)
@@ -47,6 +48,22 @@ class Web3jUtilTest {
             assert false;
         }
         web3j.shutdown();
+    }
+
+    /**
+     * 测试复投方法
+     */
+    @Test
+    void testAutoCalcFtIncome() {
+        BigDecimal balance = BigDecimal.valueOf(10);
+        BigDecimal rate = BigDecimal.valueOf(0.1);
+        int days = 30;
+        BigDecimal redelivery = Web3jUtil.autoCalcFtIncome(balance, rate, days);
+
+        for (int i = 0; i < days; i++) {
+            balance = balance.multiply(rate.add(BigDecimal.valueOf(1)));
+        }
+        assert redelivery.equals(balance);
     }
 
 }
