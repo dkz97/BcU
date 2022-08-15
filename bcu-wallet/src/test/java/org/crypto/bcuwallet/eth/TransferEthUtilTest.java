@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 import lombok.extern.slf4j.Slf4j;
 import org.crypto.bcuwallet.BcuWalletApplication;
 import org.crypto.bcuwallet.common.util.Web3jUtil;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
