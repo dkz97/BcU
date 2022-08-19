@@ -43,8 +43,11 @@ class AccountUtilTest {
      */
     @Test
     void testGetBalanceOf1() throws IOException {
-        JsonRpc2_0Admin web3j = new JsonRpc2_0Admin(new HttpService());
-        assertTrue(AccountUtil.getBalanceOf(web3j, new ArrayList<>()).isEmpty());
+        Web3j web3j = Web3jUtil.connectEthLocal();
+        String account = "321";
+        List<String> accounts = new ArrayList<>();
+        accounts.add(account);
+        assertTrue(AccountUtil.getBalanceOf(web3j, accounts).isEmpty());
     }
 
 
